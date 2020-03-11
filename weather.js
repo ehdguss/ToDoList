@@ -1,57 +1,53 @@
-document.querySelector(".top-row").style.width = window.innerWidth;
-
-const weather = document.querySelector(".js-weather");
-
+const weather = document.querySelector('.weather');
+const LOCATION = 'location';
 const API_KEY = "27e864578d2870ee6b04407458766775";
-const COORDS = 'coords';
 
-function getWeather(lat, long) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${API_KEY}&units=metric`
+function getWeather(lat, lon) {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
     ).then(function(response) {
-        return response.json()
+        return response.json();
     }).then(function(json) {
         const temperature = json.main.temp;
         const place = json.name;
-        weather.innerText = `기온: ${temperature}°C | 장소: ${place}`;
-    })
+        weather.innerText = `${temperature}°C | ${place}`;
+    });
 }
 
-function saveCoords(coordsObj) {
-    localStorage.setItem(COORDS, JSON.stringify(coordsObj));
+function saveLocation(locationObj) {
+    localStorage.setItem(LOCATION, JSON.stringify(locationObj));
 }
 
-function handleGeoSucces(position) {
-    const latitude  = position.coords.latitude;
+function getSucces(position) {
+    const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-
-    const coordsObj = {
+    const locationObj = {
         latitude,
         longitude
     };
 
-    saveCoords(coordsObj);
+    saveLocation(locationObj);
     getWeather(latitude, longitude);
 }
 
-function handleGeoError() {
-    console.log('cant access geolocation');
+function getError() {
+    console.log("Error");
 }
 
-function askForCoords() {
-    navigator.geolocation.getCurrentPosition(handleGeoSucces, handleGeoError);
+function askLocation() {
+    navigator.geolocation.getCurrentPosition(getSucces, getError);
 }
 
-function loadCoords() {
-    const loadedCoords = localStorage.getItem(COORDS);
-    if(loadedCoords === null) {
-        askForCoords();
+function loadInfo() {
+    const loadLocation = localStorage.getItem(LOCATION);
+    if(loadLocation === null) {
+        askLocation();
     } else {
-        const parseCoords = JSON.parse(loadedCoords);
-        getWeather(parseCoords.latitude, parseCoords.longitude);
+        const parseLocation = JSON.parse(loadLocation);
+        getWeather(parseLocation.latitude, parseLocation.longitude);
     }
 }
 
 function init() {
-    loadCoords();
+    loadInfo();
 }
 init();

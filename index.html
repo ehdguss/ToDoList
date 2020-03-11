@@ -2,42 +2,43 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>To Do List</title>
-    <link rel="stylesheet" href="index.css" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="top-row">
-        <span class="js-weather"></span>
-    </div>
+        <div class="top-row">
+            <h4 class="calendar"></h4>
+            <h4 class="weather"></h4>
+        </div>
 
-    <div class="js-clock">
-        <h1 class="js-title">00:00</h1>
-    </div>
+        <section class="center">
+            <h1 class="clock"></h1>
+        
+            <form class="askForm">
+                <input type="text" class="askName" placeholder="What's your name?">
+            </form>
 
-    <form class="js-form form center">
-        <input class="text1" type="text" placeholder="What's your name?">
-    </form>
+            <h2 class="greeting"></h2>
 
-    <div class="gre">
-        <h4 class="js-greetings greetings center"></h4>
-    </div>
+            <form class="toDoForm">
+                <input type="text" class="askToDo" placeholder="Write a to do">
+            </form>
 
-    <form class="js-toDoForm center">
-        <input class="text2" type="text" placeholder="Write a to do">
-    </form>
-    <div class="textBox-line"></div>
+            <ul class="toDoList">
+            </ul>
+        </section>
 
-
-    <div class="list">
-        <ul class="js-toDoList">
-        </ul>
-    </div>
-
+        <div class="bot-row"></div>
+    
+    <script>
+        document.querySelector('.top-row').style.width = window.innerWidth;
+        document.querySelector('.bot-row').style.width = window.innerWidth;
+    </script>
+    <script src="backGround.js"></script>
     <script src="clock.js"></script>
+    <script src="weather.js"></script>
     <script src="greeting.js"></script>
     <script src="TDL.js"></script>
-    <script src="backGround.js"></script>
-    <script src="weather.js"></script>
 </body>
 </html>
